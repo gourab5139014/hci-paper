@@ -1,0 +1,29 @@
+%Mobile databases are the statutory backbones of many applications on smartphones.
+%Their performance very much depends on the performance of the underlying databases.
+%However, these databases and the querying engines in the applications are usually uncontrolled, not properly designed, and not tuned for optimal performance.
+%We take the initiative to analyze mobile database logs to investigate the interaction between the application and the database to model the application characteristics.
+%Although various techniques have already been produced for database log exploration, they target enterprise environments where the data is accessed from many different machines and by many different users.
+%On Android phones, on the other hand, the database is exclusive to one application, which means, understanding the log can lead to understanding the application, hence, allowing for opportunities to improve the performance considerably.
+%In this paper, we introduce the first steps of a framework to create a benchmarking tool which aims to emulate the workloads of Android applications to compare different mobile database management system implementations.
+%We first describe the PocketData dataset while pointing out the details that we exploit.
+%We then propose a clustering scheme where we analyze the query logs to identify and group the SQL queries with similar interests together.
+%We show experimentally that the clustering scheme is able to categorize queries with similar interests together.
+%Finally, we elaborate on using these clusters to model common behaviors and unusual patterns.
+%We believe these common patterns can be used to realistically emulate synthetic workloads created by Android applications, allowing to test the performance of different mobile database management systems.
+%Another possible usage of this system is to identify unnecessarily repeating patterns; which can be an indicator of bugs in the source code, hence, allowing the application developers to solve problems that do not create the application to crash but reducing performance. 
+
+%Mobile databases are the statutory backbones of many applications on smartphones.
+%Their performance very much depends on the performance of the underlying databases.
+%However, these databases and the querying engines in the applications are usually uncontrolled, not properly designed, and not tuned for optimal performance.
+%We take the initiative to analyze mobile database logs to investigate the interaction between the application and the database to model the application characteristics.
+%Although various techniques have already been produced for database log exploration, they target enterprise environments where the data is accessed from many different machines and by many different users.
+%On Android phones, on the other hand, the database is exclusive to one application, which means, understanding the log can lead to understanding the application, hence, allowing for opportunities to improve the performance considerably.
+In this paper, we introduce the first steps of a framework to create a benchmarking tool which aims to emulate the workloads of Android applications to compare different mobile database management system implementations.
+%We first describe the PocketData dataset while pointing out the details that we exploit.
+First, we describe a clustering scheme where we analyze the query logs to group the SQL queries by semantic similarity.
+%We show experimentally that the clustering scheme is able to categorize queries with similar interests together.
+Then, we introduce a session identification technique for mobile query workloads where we identify bursts of activities created by the user actions.
+Finally, we elaborate on using these clusters and session information to model common behaviors and unusual patterns.
+We demonstrate that these common patterns can be used to realistically emulate synthetic workloads created by Android applications, allowing to test the performance of different mobile database management systems.
+Another possible usage of this system is to identify unnecessarily repeating patterns; which can indicate bugs or inefficiencies in the app.
+%be an indicator of bugs in the source code, hence, allowing the application developers to solve problems that do not create the application to crash but reducing performance. 

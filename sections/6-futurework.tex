@@ -1,0 +1,24 @@
+This paper represents the first steps for developing a \textit{small data} benchmarking tool for apps running on mobile devices. We plan several extensions as future work. 
+
+First, our efforts, until now, focused on how users access data instead of their total utilization of database system capabilities: inserts, updates, and deletions along with select statements.
+This will require us to modify the current query comparison methods since their specifications do not support them.
+We will continue to expand the scope of our analysis through understanding more statement types and their effects on the query load.
+
+Second, the PocketData dataset contains the time which the query took to execute itself. 
+We have not used this measure in our analysis yet.
+This could prove to be a valuable aid in uncovering further characteristics of the data.
+
+Finally, we will investigate how to emulate a workload utilizing the findings in this paper automatically.
+This step is essential for creating a benchmarking tool.
+This includes concentrating our focus on both emulating the queries and generating data for the mobile application we are evaluating.
+
+PocketBench will be a decision support benchmark that will consist of a series of queries that are created from real user query logs and concurrent mobile data manipulation operations. The queries and the data populating the database will be realistically emulated from the common patterns and sessions that we identified in this work. This benchmark will
+
+\begin{enumerate}
+  \item Examine realistic amounts of data in a mobile database
+  \item Execute queries with complexities proportional to the mobile app produces
+  \item Give answers to real-world mobile application performance questions
+  \item Simulate generated queries
+  \item Generate realistic activity on the mobile database under test
+  \item Be implemented with constraints that real production line mobile databases have.
+\end{enumerate}

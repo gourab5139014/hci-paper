@@ -1,0 +1,84 @@
+Clustering the workload narrows down the space of possible patterns that could be detected. This facilitates easier and more accurate understanding of the workload~\cite{pavlo2017self}. The main goal of this step is to group queries into classes that exhibit similar interests over database attributes. We consider two queries to exhibit similar interests over database attributes if they are similar in semantic structure. In the clustering process, we first filter the queries belonging to the app of our interest without distinguishing which user the activity belongs to. Then, we create clusters using all the queries belonging to that specific app. The workflow for the PocketData dataset is illustrated in Figure~\ref{fig:clusteringWorkflow}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{graphics/clustering}
+    \caption{The workflow for clustering process}
+    \label{fig:clusteringWorkflow}
+\end{figure}
+
+To achieve this we need to be able to extract features out of SQL queries, compare them and compute their similarity. Extracting features from a SQL query can be done in many ways. Let's consider the following queries:
+\begin{verbatim}
+Q1: SELECT username FROM user WHERE rank = "admin"
+ 
+Q2: SELECT rank, count(*) FROM user
+    WHERE rank <> "admin" GROUP BY rank
+\end{verbatim}
+
+These two queries share many attributes and seem to be working on similar concepts although not performing semantically very similar tasks. Usually, what we consider important in a query can roughly be listed as \textit{selection}, \textit{joins}, \textit{group-by}, \textit{projection}, and \textit{order-by}.
+
+%\begin{itemize} 
+%  \item Selection
+%  \item Joins
+%  \item Group-By
+%  \item Projection
+%  \item Order-By
+%\end{itemize}
+
+%\tinysection{Workload exploration}
+
+%One of the main topics in Ettu~\cite{kul2016ettu} project is to investigate how SQL queries can be compared effectively and accurately. In their research~\cite{kul2016similarity}, the authors survey the literature for the methodologies used in this field and elaborate on three available methods~\cite{aouiche2006, aligon2014similarity, makiyama2015text}.
+
+%Aouiche \textit{et al.}~\cite{aouiche2006} utilize a pairwise similarity metric between two SQL queries in order to optimize view selection in data warehouses by creating feature vectors out of the \textit{selection}, \textit{joins} and \textit{group by} items in the query while not considering the appearance count. They use Hamming Distance to calculate a similarity value between these two vectors.
+
+%Aligon \textit{et al.}~\cite{aligon2014similarity} present a survey on a great range of approaches which seek to put forward a similarity function to compare the similarity of OLAP sessions. Inspired by their findings, they propose their own query similarity metric which considers \textit{projection}, \textit{group by}, \textit{selection} and \textit{join} items for queries issued on OLAP datacubes. Their method creates separate sets for each of these components and appoint an importance weighting to each set. When comparing two SQL queries, each of these three sets get compared to the other query's corresponding set, hence, by using Jaccard Coefficient, they get a similarity score for each set. Finally, they compute an overall similarity score by the average of these three scores.
+
+Makiyama \textit{et al.}~\cite{makiyama2015text} put forward the most similar work we are working on. They perform query log analysis with a motivation of analyzing the workload on the system, and they provide a set of experiments on Sloan Digital Sky Survey (SDSS) dataset. They extract the terms in \textit{selection}, \textit{joins}, \textit{projection}, \textit{from}, \textit{group-by}, and \textit{order-by} items separately, and create the query vector out of their appearance frequency for each query in the dataset. They compute the pairwise similarity of queries with cosine similarity.
+
+%When we inspect closely, we can easily see that Aouiche method is a naive version of the other two methods. In our experiments, we apply both Aligon and Makiyama methods, since they have competitive performance as shown in Ettu's log summarization study~\cite{kul2016similarity}.
+%Makiyama method can be used to perform k-means and hierarchical clustering since they provide the feature vectors, whereas Aligon method can only be used to apply hierarchical clustering since the method is used to create a distance matrix, not feature vectors.
+
+To clarify the ambiguity between distance and similarity terms, we define distance as follows:
+
+$$distance = 1 - similarity$$
+
+where the similarity is the score we get from the methods explained above. 
+
+%\textbf{Structural complexity:}
+
+%Another approach to calculate a pairwise similarity score for SQL queries is to treat SQL as a programming language, and utilize an approach that code plagiarism detectors take~\cite{jadalla2008pde4java}: first, we generalize all grammar items into their SQL types, and extract n-grams of each query. For example,  
+
+%\begin{verbatim}
+%Q1: SELECT rank, count(*) FROM user
+%    WHERE rank <> "admin" GROUP BY rank
+%\end{verbatim}
+
+%gives us the following terms:
+
+%\begin{verbatim}
+%Terms(Q1) = {SQL_SELECT,
+%             COLUMN,
+%             COUNT,
+%             OPEN_PARANTHESIS,
+%             ALL_COLUMNS,
+%             CLOSE_PARANTHESIS,
+%             SQL_FROM,
+%             TABLE,
+%             SQL_WHERE,
+%             COLUMN,
+%             NOT_EQUALS,
+%             CONSTANT,
+%             SQL_GROUPBY
+%             COLUMN}
+%\end{verbatim}
+
+%Pairwise comparison of the n-gram vectors created from these items for each query with cosine similarity is the pairwise similarity score. 
+
+%Although this approach clearly cannot be used to understand the workload characteristics of a query log due to the information loss while converting the query into term type n-grams, it is expected to successfully cluster queries engineered with the same approach.
+
+We use hierarchical clustering
+%in our experiments,
+which takes the distance matrix as input, and outputs a dendrogram -- a tree structure which shows how each query can be grouped together.
+Furthermore, a dendrogram is a convenient way to visualize the relationship between queries and how each query is grouped in the clustering process.
+
+%We will explore the possibility of using both of these methods.

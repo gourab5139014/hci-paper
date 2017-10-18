@@ -1,0 +1,7 @@
+The focus of this paper is to identify common behaviors and unusual patterns in user activities on mobile databases with the hypothesis that making use of this information can open up a lot of opportunities for mobile apps.
+Identifying the common behaviors are essential for creating a \textit{small data} benchmark which compares the performance of mobile database management systems under different workloads.
+Another usage scenario of this information is to find out bugs and unnecessary function calls by identifying repeating queries on data that has not change the last reading.
+To achieve this, we analyze PocketData dataset which consists of SQL queries posed by different applications for 11 users for a month.
+We utilize different query similarity methods to identify important features out of these queries, form feature vectors out of them, and cluster the similar queries together by their feature vectors with hierarchical clustering.
+Finally, we discuss on how we can make use of this clusters; we appoint an integer label to each cluster, and whenever there is an incoming query from a user, we identify which cluster the new query belongs to.
+These labels create a sequential array of integers for that specific user, in which we explore interesting and repeating patterns.

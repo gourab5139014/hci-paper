@@ -1,0 +1,52 @@
+1. Introduction
+
+- We are currently too focused on what we did.
+- We should focus on motivation more.
+
+- First two paragraphs - what we do on this paper
+- The rest of the introduction
+	- why this is needed
+	- what is novel
+- Last paragraph: summary of contributions
+
+2. System Outline
+This talks about moving parts of the system. Description of each phase constitutes of their purpose, inputs and outputs.
+
+[Gourab: I agree with Oliver's point of a significant overlap between this section and S3. I think after we freeze the outline, we should move out the detailed description of each 
+phase from sub-sections of S2 to S3. Is it okay to have a leaner S2?]
+
+[Gokhan: Let's merge section 2 and 3. We start with current section 2; meaning, we will give a 1-2 paragraph design and moving parts introduction. We will follow with 1 sentence description of the phases within \tinysection{} styling. Then we are going to introduce every phase with every detail.
+
+2.1 Clustering Phase
+2.2 Session Identification phase
+2.3 Session parameter detection phase
+
+
+3. Detailed Design 
+This dives deep into each phase. We talk about the techniques we have used - what has already been done before and what's new. We illustrate key techniques in details and talk about why these were choosen
+
+3.1 Clustering
+3.2 Session Identification
+3.3 Pattern Matching
+3.4 Resource Utilization
+
+[Gokhan: Merge this section completely as described in the previous comment.]
+
+
+4. Experiments
+
+4.1 Dataset
+
+4.2 Environment
+
+4.3 Clustering
+
+4.4 Session Identification
+
+4.5 Common Patterns
+
+
+5. Conclusion
+
+
+6. Future Work

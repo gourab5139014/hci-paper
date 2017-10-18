@@ -1,0 +1,114 @@
+%\documentclass[sigconf, anonymous]{acmart}
+%\documentclass[sigconf]{acmart}
+\documentclass{vldb}
+
+\input{preamble}
+\usepackage{balance}  % for  \balance command ON LAST PAGE  (only there!)
+
+\numberofauthors{1}
+
+\begin{document}
+
+\title{Summarizing Small Data Workloads} 
+
+
+% \author{
+% \alignauthor
+% Gokhan Kul, Gourab Mitra, Oliver Kennedy, Lukasz Ziarek\\
+%        \affaddr{University at Buffalo, SUNY}\\
+%        \email{\{gokhanku, gourabmi, okennedy, lziarek\}@buffalo.edu}
+% }
+\author{
+    Anonymous authors
+}
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{abstract}
+\input{sections/0-abstract.tex}
+\end{abstract}
+
+%>>>> Include a list of keywords after the abstract 
+
+\keywords{Benchmark, Database, Workload, Mobile Systems}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\label{sec:intro}  % \label{} allows reference to this section
+\input{sections/1-introduction.tex}
+
+\section{Preliminaries}
+\label{sec:background}
+\input{sections/2-background.tex}
+
+\section{System Outline}
+\label{sec:systemoutline}
+%\input{sections/2-systemoutline.tex}
+\input{sections/3-systemoverview.tex}
+
+
+%\section{Methodology}
+%\label{sec:method}  % \label{} allows reference to this section
+%\input{sections/3-method.tex}
+
+%\section{Building Blocks}
+%\label{sec:buildingblocks}
+%\input{sections/4-buildingBlocks.tex}
+
+\section{Session Identifier}
+\label{sec:sessionidentifier}
+\input{sections/4a-sessionidentification.tex}
+
+\section{Profiler}
+\label{sec:profiler}
+\input{sections/4b-profiler.tex}
+
+\section{Analyzer}
+\label{sec:analyzer}
+\input{sections/4c-analyzer.tex}
+
+
+%\subsection{Clustering}
+%\label{sec:clustering}  % \label{} allows reference to this section
+%\input{sections/3a-clustering.tex}
+
+%\subsection{Session Identification}
+%\label{sec:session}  % \label{} allows reference to this section
+%\input{sections/3c-sessionidentification.tex}
+
+%\subsection{Pattern Matching}
+%\label{sec:pattern}  % \label{} allows reference to this section
+%\input{sections/3b-patternmatching.tex}
+
+%\subsection{Resource Utilization}
+%\label{sec:resource}  % \label{} allows reference to this section
+%\input{sections/3d-resourceutilization.tex}
+
+\section{Experiments}
+\label{sec:experiments}  % \label{} allows reference to this section
+\input{sections/4-experiments.tex}
+
+\section{Conclusion}
+\label{sec:conclusion}  % \label{} allows reference to this section
+\input{sections/5-conclusion.tex}
+
+\section{Future Work}
+\label{sec:futurework}  % \label{} allows reference to this section
+\input{sections/6-futurework.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+
+\bibliographystyle{abbrv}
+\balance
+\bibliography{paperGokhan,paperGourab}
+\end{document} 

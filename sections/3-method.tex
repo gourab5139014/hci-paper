@@ -1,0 +1,49 @@
+%We propose a heuristic to analyze query logs and find out interesting patterns. This process has three steps:
+
+%\begin{enumerate}
+%  \item Figuring out the activities of interest with respect to the application
+%  \item Clustering the queries
+%  \begin{enumerate}
+%  	\item Extracting features
+%  	\item Query comparison
+%  	\item Clustering with different strategies
+%  \end{enumerate}
+%  \item Detecting patterns in user activity
+%  \begin{enumerate}
+%  	\item Appoint an integer label to each cluster
+%  	\item Identify which cluster a new-coming query belongs to
+%  	\item Identify patterns with different strategies
+%  \end{enumerate}
+%\end{enumerate}
+
+%The strategies for applying these steps are given in this section.
+
+%\todo{Create a diagram on what is an Activity, Session, Workload?}
+
+In this paper, we propose a heuristic to analyze query logs, and find out patterns that the users utilize the most.
+
+We first partition the query log into \emph{sessions} as described in Section~\ref{sec:session}. Then, we find out the frequency of \emph{similar} activities. This could be done in two ways: 
+
+\begin{itemize}
+	\item \textbf{Supervised approach:} We define a set of atomic activities that are possible to be performed on an application, and look for them every time a user uses the phone. The frequency of the activities that appear together or individually in these \emph{sessions} provide an outlook of how a user utilizes an application. We describe the process in Section~\ref{sec:supervisedapproach}.
+	\item \textbf{Unsupervised approach:} \todo{Define this.} We describe the process in Section~\ref{sec:unsupervisedapproach}.
+\end{itemize}
+
+\subsection{Session Identification}
+\label{sec:session}
+
+In our framework, a \textit{database session} is a logical unit of user interaction. It spans over a period of time and comprises of sequential queries. If two sequential queries are more than \textit{t} seconds apart, we consider them to be in different sessions. Parameter \textit{t} is called the Idle Time Tolerance. 
+%In our framework, a \textit{database session} on a smartphone is a time period in which the user's activity makes the application issue sequential queries with a period of at most \textit{t} seconds between them.
+%We identify the approximate the time \textit{t} for each user to find what constitutes of a session for each user.
+Large values of \textit{t} would create sessions which span longer amounts of time. These bloated sessions would capture multiple tasks which would reduce the granuarity of subsequent processing. On the other hand, very small values of \textit{t} would create very small sessions which span minuscule amounts of time and contain very less queries. Such tiny sessions might not capture complete tasks.
+
+We incrementally iterate different idle time tolerances \textit{t} and look at the corresponding number of sessions that are obtained. The optimum value of \textit{t} is obtained by locating the knee or trade-off point. The non-optimum values of \textit{t} would require an unfavorably large change in one of the quantities to gain a small amount in the other. 
+%We incrementally iterate different idle time tolerances \textit{t}, and determine the ideal \textit{t} when incrementing it starts not to affect the number of sessions identified.
+
+
+%We harvest the features extracted for each query in a session, and create a bag of features.
+%We measure the behavior difference between sessions with Jensen-Shannon divergence~\cite{fuglede2004jensen} which compares two given probability distributions.
+%Therefore, we are able to determine distinctive session characteristics, as well as repeating ones.
+
+\input{sections/3c-sessionidentification.tex}
+

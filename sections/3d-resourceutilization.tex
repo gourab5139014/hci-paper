@@ -1,0 +1,48 @@
+Sessions over time may show various characteristics over time, and it is important to identify sessions that deviate from the other sessions to be able to generate new workloads.
+The generated workloads should reflect the normal behavior of users, but they should still include realistic deviations in order to create a pragmatic workload that emulate a user.
+
+Each query $Q^{t_i}_u$ is processed with the methodology given in Section~\ref{sec:clustering}, and denoted as:
+
+\begin{equation}
+Q^{t}_u = ( f^{t}_1(c_0), f_2^{t}(c_1), ... , f_m^{t}(c_n) )
+\end{equation}
+
+where $t$ is the timestamp that the query $Q$ was issued, $u$ represents the username of the query owner, $f_i$ is the feature extracted, and $c_j$ denotes how many times the feature $f_i$ was observed in the query.
+
+A session $S$ is represented by a user $u \in U$, where $U$ is the set of all users, for the time period $T$ that starts from $t_0$ and goes on for $\Delta t$, and the set of queries $Q$ performed by $u$ within $T$. Formally,
+
+\begin{equation}
+S^T_u = ( Q^{t_0}_u, Q^{t_1}_u, ... , Q^{t_n}_u )
+\end{equation}
+
+where $Q^{t_i}_u$ represents a query $Q_{t_i}$ issued at time $t_i$ by user $u$.
+
+The \textit{sessions} are created with the accumulation of these features from the beginning to the end of the session.
+Using the appearance frequency of these features, we calculate the appearance probability of each harvested feature.
+This multinomial probability distribution of the features for each user constitutes the \textit{session distribution}.
+A session distribution $\phi$ is formally denoted as:
+
+\begin{equation}
+\phi^T_u = ( P(f_0)^{T}_u, P(f_1)^{T}_u, ... , P(f_n)^{T}_u )
+\end{equation}
+
+where $P(f_i)^{T}_u$ represents the probability of encountering feature $f_i$ within the timeframe $T$ among all the operations performed by user $u$.
+
+
+We compute the difference between distributions with Jensen-Shannon Divergence~\cite{fuglede2004jensen}. Comparison of a with the other sessions using Jensen-Shannon Divergence gives the difference denoted as follows:
+
+\begin{equation}
+d^{T_1}_u (\phi^{T_1}_u || \phi^{T_2}_u) = \frac{1}{2} KL(\phi^{T_1}_u || \phi^{T_2}_u) + KL(\phi^{T_2}_u || \phi^{T_1}_u)
+\end{equation}
+
+where 
+
+\begin{equation}
+KL(\phi^{T_1}_u || \phi^{T_2}_u) = \sum_i \phi^{T_1}_u(i)  log_2 \frac{\phi^{T_1}_u(i)}{\phi^{T_2}_u(i)}
+\end{equation}
+
+\textbf{Jensen-Shannon Divergence} is used for comparing two probability distributions, $P$ and $Q$; and it ranges between 0 and $\infty$. $D_{JS}(P||Q)$ essentially represents the symmetric information loss when $P$ distribution is used to approximate $Q$.
+
+Note that when $P(i) \neq 0$ and $Q(i) = 0$,  $D_{JS}(P||Q)=\infty$. For example, suppose, we have two distributions $P$ and $Q$ as follows: $P = \{ f_0: 3/10, f_1: 4/10, f_2: 2/10, f_3: 1/10 \}$ and $Q = \{ f_0: 3/10, f_1: 3/10, f_2: 3/10, f_4: 1/10 \}$. In this case, since $f_3$ is not a part of $Q$, the result would be $\infty$, which means these two distributions are completely different. 
+
+\textbf{Smoothing.} To get past this problem, we can apply \textit{smoothing} (i.e., Laplace/additive smoothing), which is essentially adding a small constant $epsilon$ to the distribution, to handle zero values, without significantly impacting the distribution. After we apply smoothing, $D_{KL}(P||Q)$ becomes $1.38$.

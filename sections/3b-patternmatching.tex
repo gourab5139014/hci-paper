@@ -1,0 +1,22 @@
+Suppose, if a query for a user consists of a series of chronically ordered queries $Q = [q_1,q_2,...q_n]$ and $f$ be the function which converts this series into windows using the above mentioned logic.
+$$f(q_1,q_2,...q_n) \rightarrow [w_1,w_2,...,w_m]$$
+where $[w_1,w_2,...,w_m]$ is the series of user sessions the are obtained. Each $w_i$ consists of chronologically ordered bag queries $Q_{w_i}$. Also, $\bigcup_1^m Q_{w_i} = Q$ and $Q_{w_i} \cap Q_{w_j}=\varnothing$ $\forall\;i,j\;\epsilon\;[1,m]\;$and$\;i\;\neq\;j$
+
+There are some peculiarities of the query logs that must be considered in order to design the methodology of working with them. Any user activity on a smartphone app consists of a sequence of multiple asynchronous operations. For example, a user might want to refresh the Facebook feed updates from time to time. The user might perceive this as a single repeating activity performed multiples times in a day. But on app performs multiple transactions during each "burst" of the same activity. Given the asynchronous name of most smartphone applications, the relative order in which these queries are issued is not fixed. This is also reflected in the query logs. User sessions might be similar to each other in terms of the intent. The intent is reflected by the query cluster that a particular query belongs to. But we can not test for similarity among these sessions by searching for common subsequences. It is highly probable that a group of queries might be be issued as part of the same logical task but they might appear to be interleaved in the query log. Each user session can be treated as a bag of queries. Hence, we need to use a similarity measure which works on the basis of membership for a particular bag. Jaccard Similarity is a simple measure to meet the above mentioned requirements. 
+
+The Jaccard similarity coefficient is a statistic used for comparing the similarity and diversity of sample sets. The Jaccard coefficient measures similarity between finite sample sets, and is defined as the size of the intersection divided by the size of the union of the sample sets. For two user sessions $w_i$ and $w_j$, we compare the membership of the clusters that the constituent queries belong to.
+
+$$J(w_i,w_j) = \frac{\left[w_i\cap w_j\right]}{\left[w_i\cup w_j\right]}$$
+If $w_i$ and $w_j$ are both empty, we define $J(w_i,w_j) = 1$. Also,  $0\leq J(w_i,w_j) \leq 1$ .
+
+We calculate $J(w_i,w_j)$ for all pairs of user sessions. Now, we start to look for "interesting" user sessions. One notion of of user sessions being interesting can be that their contents occur in the query log more frequently. A high Jaccard similarity score for a pair of user sessions can be interpreted as them being similar to each other, thereby leading the contents to occur more frequently. For a particular user session $w_i$, we would be now looking out for the top K user sessions which are most similar with $w_i$. Calculating the average similarity of $w_i$ with the most similar K sessions $[w_1,w_2..., w_k]$ yields a notion of the importance of $w_i$ in representing the characteristics of the workload represented in the query log. We denote this average similarity for $w_i$ with top K windows as $J_{w_i{avg}}$.
+
+$$J_{wi_{avg}}= \frac{\sum_{j=1}^{k} J(w_i,w_j)}{k}$$
+
+When we calculate $J_{w_i{avg}}$ for all $w_1,w_2...,w_m$, we obtain a vector of average similarity scores for the entire query log for a user.
+
+$$[J_{w_{1_{avg}}},\;J_{w_{2_{avg}}},\;J_{w_{3_{avg}}},\;...,\;J_{w_{m_{avg}}}]$$
+
+This vector denotes the relative importance of the user sessions to characterize the workload of the application. 
+
+

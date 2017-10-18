@@ -1,0 +1,33 @@
+%We propose a heuristic to analyze query logs and find out interesting patterns. This process has three steps:
+
+%\begin{enumerate}
+%  \item Figuring out the activities of interest with respect to the application
+%  \item Clustering the queries
+%  \begin{enumerate}
+%  	\item Extracting features
+%  	\item Query comparison
+%  	\item Clustering with different strategies
+%  \end{enumerate}
+%  \item Detecting patterns in user activity
+%  \begin{enumerate}
+%  	\item Appoint an integer label to each cluster
+%  	\item Identify which cluster a new-coming query belongs to
+%  	\item Identify patterns with different strategies
+%  \end{enumerate}
+%\end{enumerate}
+
+%The strategies for applying these steps are given in this section.
+
+Both the supervised and unsupervised approaches described in the previous section has three blackboxes: (1) Session identifier, (2) Profiler, and (3) Analyzer. In this section, we describe the methods that we applied to implement these black boxes.
+
+\subsection{Session Identifier}
+\label{sec:sessionidentifier}
+\input{sections/4a-sessionidentification.tex}
+
+\subsection{Profiler}
+\label{sec:profiler}
+\input{sections/4b-profiler.tex}
+
+\subsection{Analyzer (Evaluation Engine)}
+\label{sec:analyzer}
+\input{sections/4c-analyzer.tex}

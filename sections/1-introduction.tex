@@ -1,0 +1,84 @@
+%!TEX root = ../paper.tex
+%Smartphones we so naturally carry and use today do not have a long history.
+%The smartphones as we know them today started to get used worldwide by average people around 2007.
+%Of course, there were earlier representatives of smartphones, but most of them did not reach to the mass crowds due to their price and lack of network coverage.
+%This fundamental shift in technology pushed phone-makers into adopting their technology into the new trends as fast as possible, to be able to stay in the market.
+%Once world leaders Nokia and Blackberry rapidly lost their market shares due to failing to adapt to the new trends~\cite{ali2013microsoft, gillette2013blackberryfailure}.
+%However, these developments led to a chaotic environment, where creating clear and consistent standards got disregarded.
+
+%One of the areas affected by this environment was how the data is stored on these devices.
+%The data can be structured or unstructured, and the data storage methodologies got adopted from computers which had a lot more processing power and available memory.
+%Although the processing power and memory barriers are fading away with the current technology in the smartphones, the applications still depend on either file-based storages like JSON and CSV or embedded SQL database systems like SQLite~\cite{wei2012android, allen2010sqlite}.
+%Although there is a limited number of choices for database management systems available for smartphones, we anticipate the release of alternative systems soon. 
+
+%Mobile phones have become ubiquitous in the last few decades.
+Many modern smartphone apps and services need to persist structured data.
+For this task, developers typically turn to embedded database like SQLite, which are available as a part of most modern smartphone operating systems.
+SQLite and databases like it are fully-featured relational databases, and so mobile apps and operating systems represent a new class of database clients.
+Embedded databases play a significant role in the performance of smartphone apps~\cite{yang-icse15}.
+Unfortunately, the needs of apps are hard to characterize: In contrast to server-class workloads, each individual app has a dedicated database and is typically only used by one user, for only short periods at a time.  
+As a consequence, the database workload created by a typical app is bursty, variable, and hard to summarize as a simple distribution of queries~\cite{kennedy2015pocket}.
+
+In this paper, we propose using a two-level hierarchy for summaries of query workloads created by smartphone apps:
+We treat app workloads as collections of tasks, or bursts of database activity typically triggered by self-contained user activities such as checking a Facebook feed or composing an email.
+Concretely, we tackle the problem of reducing a log of per-app query activity down to a set of task categories.
+Using recently collected traces of smartphone query activity in the wild~\cite{kennedy2015pocket}, we are able to show that our approach is able to cluster queries into meaningful tasks.
+These summaries can in turn be used by embedded database developers to better understand app requirements, as well as app developers to better tune app performance.
+Summaries can also be used as the basis for synthetic workloads representative of individual apps.
+
+Our solution addresses three specific challenges.
+First, we assume that the app's query log arrives as one large sequence of queries.  
+We explore how to segment the log into sub-sequences of queries, each corresponding to one task.
+Although there are no explicit cues from the user that signal that a task has started or completed, we show that it is possible to use query inter-arrival rates to identify a time threshold between tasks.
+
+We next consider linking these sub-sequences together into self-similar clusters.  
+Every cluster corresponds to one category of task.
+The underlying question is what makes two clusters similar.
+Query similarity has already received significant attention~\cite{aouiche2006,aligon2014similarity,makiyama2015text}.
+A common approach is to describe queries in terms of features extracted from the query --- Common features include which columns are projected or what selection predicates are used.
+Although our underlying approach is agnostic to how these features are extracted, we experiment with a variety of feature definitions and adopt a feature extraction method proposed by Makiyama \textit{et al.}~\cite{makiyama2015text}.
+
+In principle each sub-sequence of queries could be described by the features of those queries.
+As we show, clustering directly on the query features is neither scalable nor reliable.
+Instead, we add an intermediate step where we first cluster individual queries, allowing us to first link related queries.
+These cluster labels then serve as the basis for the task-similarity metric.
+
+
+%We will model common behaviors and identify unusual patterns which can be used to realistically emulate synthetic workloads created by Android applications. 
+
+%In this paper, we introduce PocketBench, a framework to create a benchmarking tool which aims to emulate the workloads of Android applications to compare different mobile database management system implementations.
+%Utilizing Android query logs, we model common behaviors and unusual patterns which can be used to realistically emulate synthetic workloads created by Android applications, allowing to test the performance of different mobile database management systems. 
+
+%\begin{scenario}
+%Charles, a \textit{Mobile Systems Product Manager} at Facebook wants to find a way to improve the performance of their mobile applications and decides to find the performance bottlenecks and performance improvement opportunities. Setting up PocketBench, his team can use the query logs of alpha test users and find out if the current DBMS system in use is better or worse than other alternatives.
+%\end{scenario} 
+%We also argue that many apps could benefit from understanding how the user uses that particular app.
+%For example, 
+
+%\begin{scenario}
+%Bob, an \textit{Android photographer}, may be using Instagram to post a lot of pictures for the brands, hotels and touristic places.
+%Alice, on the other hand, may be using Instagram for browsing photos from the users she follows, and may not have the habit of posting too many photos.
+%\end{scenario}
+
+%The workload these two people in the scenario create on the local mobile database is different, and should be addressed accordingly.
+%We can utilize this usage characteristics information to
+%(1) increase performance for various workloads,
+%(2) find out bugs and unnecessary database calls in the apps,
+%(3) give more accurate recommendations to the user, and
+%(4) explore the data flow improvement opportunities within the app.
+
+Concretely, in this paper we:
+(1) Identify the challenges posed by mobile app workloads for query log summarization,
+(2) Propose a two-level, task-oriented summary format for mobile app workloads,
+(3) Design a process for creating task-oriented summaries from query logs, and
+(4) Evaluate our summarization process, showing that it efficiently creates representative summaries.
+
+
+%An application of the core contribution of this work is the development of synthetic workload generator which could be used to create a benchmark.
+%The methods described in this paper can be used to automatically generate benchmarks from query logs of an application.
+%Note that although we motivate for creating a benchmark in this paper, developing the data and query emulation step is not in the scope of this work.
+
+This paper is organized as follows. We first describe the moving parts of the system in Section~\ref{sec:systemoutline}. 
+Then, we give a detailed description of our framework and our methods in Section~\ref{sec:buildingblocks}.
+In Section~\ref{sec:experiments}, we introduce a sample dataset for workload characterization, and we evaluate our proposed techniques using this dataset.
+Finally, we conclude in Section~\ref{sec:conclusion}, and identify the steps needed to deploy our methods into practice in Section~\ref{sec:futurework}.

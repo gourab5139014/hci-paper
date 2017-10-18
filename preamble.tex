@@ -1,0 +1,85 @@
+%%%%%% Standard Packages %%%%%%
+\usepackage{graphicx}
+\usepackage{amssymb}
+%\usepackage[noend]{algorithmic}
+\usepackage{algorithm}
+\usepackage{stackrel}
+\usepackage{algpseudocode}
+\usepackage{textcomp}
+\usepackage{listings}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{amsmath}
+%\usepackage{cite,color,xspace}
+\usepackage{latexsym}
+%\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage[normalem]{ulem}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{etoolbox}
+\usepackage{varwidth}
+\usepackage{enumitem}
+\usepackage{longtable}
+
+
+
+\usepackage{multirow}
+
+%%%%%% Package Configuration %%%%%%
+%%% Listings
+\lstset{language=sql,morekeywords={LENS,SCHEMA_MATCHING,string},basicstyle=\small\upshape\ttfamily,keywordstyle=\color{blue}}
+%%% verbatim
+\makeatletter
+\preto{\@verbatim}{\topsep=5pt \parsep=0pt }
+\makeatother
+%%% Algorithmic
+\renewcommand{\algorithmicrequire}{\textbf{In:}}
+\renewcommand{\algorithmicensure}{\textbf{Out:}}
+%% Multicol
+\setlength\multicolsep{\topsep}
+
+%%%%%% Standard Theorem Environments %%%%%%
+%\newtheorem{example}{Example}
+\newtheorem{scenario}{Scenario}
+
+%%%%%%% Table styling %%%%%%
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+%%%%%% Common Math-Mode Aliases %%%%%%
+\newcommand{\comprehension}[2]{\left\{\;{#1}\;|\;{#2}\;\right\}}
+\newcommand{\tuple}[1]{\left<\;{#1}\;\right>}
+\newcommand{\ordefn}{\;|\;}
+\newcommand{\sch}[1]{\texttt{schema}({#1})}
+\newcommand{\projection}{\pi}
+\newcommand{\selection}{\sigma}
+\newcommand{\logicalAnd}{\wedge}
+\newcommand{\logicalOr}{\vee}
+\newcommand{\Union}{\bigcup}
+\newcommand{\Intersection}{\bigcap}
+\newcommand{\sysname}{Ettu}
+\newcommand{\featuresof}[1]{F_{#1}}
+\newcommand{\digest}[1]{\texttt{digest}({#1})}
+\newcommand{\listdigest}[1]{\texttt{digest}_{\ell}([{#1}])}
+\newcommand{\bagdigest}[1]{\texttt{digest}_{b}(\{|{#1}|\})}
+\newcommand{\setdigest}[1]{\texttt{digest}_{s}(\{{#1}\})}
+\newcommand{\astof}[1]{\mathit{AST}_{#1}}
+\newcommand{\occurof}[1]{O_{#1}}
+\newcommand{\gen}[1]{\texttt{Gen}({#1})}
+
+%%%%%% TODOs %%%%%%
+\newcommand{\todo}[1]{\textcolor{red}{[[ Task: #1 ]]}}
+
+%%%%%% NOTEs %%%%%%
+\newcommand{\note}[1]{\textcolor{blue}{[[ Note: #1 ]]}}
+
+%%%%%% Other Aliases %%%%%%
+\newcommand{\ccomment}[1]{{\small\texttt{/*} #1 \texttt{*/}}}
+\newcommand{\tinysection}[1]{\noindent \textbf{#1.}~}
+\newcommand{\keyword}[1]{\textcolor{blue}{\texttt{#1}}}
